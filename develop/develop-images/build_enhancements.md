@@ -24,12 +24,14 @@ For more information on build options, see the reference guide on the
 
 ## Requirements
 
-* A current version of Docker (18.09 or higher)
+* System requirements are docker-ce x86_64, ppc64le, s390x, aarch64, armhf; or
+  docker-ee x86_64 only
 * Network connection required for downloading images of custom frontends 
 
 ## Limitations
 
 * Only supported for building Linux containers
+* BuildKit mode is compatible with UCP 3.2 or newer
 
 ## To enable BuildKit builds
 
@@ -155,8 +157,8 @@ RUN --mount=type=secret,id=mysecret,dst=/foobar cat /foobar
 ```
 
 This Dockerfile is only to demonstrate that the secret can be accessed. As you
-can see the secret printed in the build output. The final image built will not
-have the secret file:
+can see the secret printed in the build output. The final image built will
+have the secret file, but without any content:
 
 ```console
 $ docker build --no-cache --progress=plain --secret id=mysecret,src=mysecret.txt .
@@ -182,8 +184,7 @@ $ docker build --no-cache --progress=plain --secret id=mysecret,src=mysecret.txt
 
 ## Using SSH to access private data in builds
 
-> **Acknowledgment**
->
+> **Acknowledgment**:
 > Please see [Build secrets and SSH forwarding in Docker 18.09](https://medium.com/@tonistiigi/build-secrets-and-ssh-forwarding-in-docker-18-09-ae8161d066)
 > for more information and examples.
 
